@@ -31,4 +31,4 @@ class User < SlackRecord
 
 end
 
-#User.print_users
+#puts User.list_users.length

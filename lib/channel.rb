@@ -34,3 +34,5 @@ class Channel < SlackRecord
 end
 
 #Channel.print_channels
+#
+puts Channel.list_channels.length
