@@ -1,25 +1,20 @@
-require 'dotenv'
-require 'httparty'
-require 'table_print'
-require_relative 'Slack_record'
+require_relative 'slack_record'
+require_relative 'recipient'
+class Channel < Recipient
 
-Dotenv.load
-
-class Channel < SlackRecord
-  attr_reader :name, :topic, :member_count, :slack_id
+  attr_reader :topic, :member_count
 
   def initialize(name:, topic:, member_count:, slack_id:)
-    @name = name
+    super(name: name, slack_id: slack_id)
     @topic = topic
     @member_count = member_count # to change?
-    @slack_id = slack_id # do we need to connect channel to user by slack_id?
   end
 
   def self.list_channels
-    channels = self.channels.map do |channel|
+    channels = SlackRecord.channels.map do |channel|
       Channel.new(
           name: channel["name"],
-          topic: channel["topic"],
+          topic: channel["topic"]["value"],
           member_count: channel["num_members"],
           slack_id: channel["id"]
       )
@@ -27,12 +22,20 @@ class Channel < SlackRecord
     return channels
   end
 
-  def self.print_channels
-    channels = self.list_channels
-    tp channels, :name, :topic, :member_count, :slack_id
+
+  def details
+    return "name: #{@name}\n" +
+        "member_count: #{@member_count}\n" +
+        "topic: #{@topic}\n" +
+        "slack_id: #{@slack_id}."
+
   end
 end
 
+
+
+#puts Channel.list_channels[1].details
+
 #Channel.print_channels
 #
-puts Channel.list_channels.length
+#puts Channel.list_channels.length

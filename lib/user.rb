@@ -1,21 +1,20 @@
-require 'dotenv'
-require 'httparty'
-require 'table_print'
-require_relative 'Slack_record'
+require_relative 'slack_record'
+require_relative 'recipient'
 
-Dotenv.load
-
-class User < SlackRecord
-  attr_reader :user_name, :real_name, :slack_id
+class User < Recipient
+  attr_reader :real_name
 
   def initialize(user_name:,real_name:, slack_id:)
-    @user_name = user_name
+    super(slack_id: slack_id, name: user_name)
     @real_name = real_name
-    @slack_id = slack_id
+  end
+
+  def user_name
+    @name
   end
 
   def self.list_users
-    members = self.users.map do |user|
+    members = SlackRecord.users.map do |user| #change to slack record
       User.new(
         user_name: user["name"],
         real_name: user["real_name"],
@@ -24,11 +23,12 @@ class User < SlackRecord
     return members
   end
 
-  def self.print_users
-    members = self.list_users
-    tp members, :real_name,:user_name, :slack_id
+  def details
+    return "real name: #{@real_name}\n" +
+        "user name : #{@name}\n" +
+        "slack ID : #{@slack_id}"
   end
 
 end
 
-#puts User.list_users.length
+#puts User.list_users[1].details

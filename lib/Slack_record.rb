@@ -1,8 +1,4 @@
-require 'dotenv'
 require 'httparty'
-require 'table_print'
-
-Dotenv.load
 
 BASE_URL_CONVERSATIONS = 'https://slack.com/api/conversations.list'
 BASE_URL_USERS = 'https://slack.com/api/users.list'
