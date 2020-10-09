@@ -32,5 +32,3 @@ class Workspace
   end
 
 end
-
-# puts Workspace.select_user("slackbot").details

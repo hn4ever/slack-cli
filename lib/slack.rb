@@ -48,7 +48,7 @@ def main
       if selected
         puts "Please write a message:"
         message = gets.chomp
-        SlackRecord.chat(message, selected.name)
+        SlackRecord.chat(message, selected.slack_id)
       else
         puts "You have not entered a user or channel. Please make your selection:"
       end
