@@ -7,7 +7,7 @@ class Channel < Recipient
   def initialize(name:, topic:, member_count:, slack_id:)
     super(name: name, slack_id: slack_id)
     @topic = topic
-    @member_count = member_count # to change?
+    @member_count = member_count
   end
 
   def self.list_channels
@@ -31,11 +31,3 @@ class Channel < Recipient
 
   end
 end
-
-
-
-#puts Channel.list_channels[1].details
-
-#Channel.print_channels
-#
-#puts Channel.list_channels.length

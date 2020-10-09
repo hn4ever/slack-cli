@@ -14,7 +14,7 @@ class User < Recipient
   end
 
   def self.list_users
-    members = SlackRecord.users.map do |user| #change to slack record
+    members = SlackRecord.users.map do |user|
       User.new(
         user_name: user["name"],
         real_name: user["real_name"],
@@ -30,5 +30,3 @@ class User < Recipient
   end
 
 end
-
-#puts User.list_users[1].details

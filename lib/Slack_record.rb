@@ -38,5 +38,3 @@ class SlackRecord
   end
 
 end
-
-#SlackRecord.chat("We are Almost there!","test-channel2")
