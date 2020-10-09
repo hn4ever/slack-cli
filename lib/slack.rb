@@ -12,7 +12,7 @@ def main
   # TODO project
 
   until user_input == "quit"
-    puts "\nWhat would you like to do? Please select one options: \n1. list users\n2. list channels\n3. select user\n4. select channel\n5. details\n6. quit"
+    puts "\nWhat would you like to do? Please select one options: \n1. list users\n2. list channels\n3. select user\n4. select channel\n5. details\n6. send message\n7. quit"
     user_input = gets.chomp.downcase
     puts
     case user_input
@@ -44,7 +44,15 @@ def main
       rescue WorkspaceError => error
         puts error.message
       end
-    when "6", "quit"
+    when "6", "send message"
+      if selected
+        puts "Please write a message:"
+        message = gets.chomp
+        SlackRecord.chat(message, selected.name)
+      else
+        puts "You have not entered a user or channel. Please make your selection:"
+      end
+    when "7", "quit"
       user_input = "quit"
     else
       puts "Not a valid option! Please enter one of the options again:"

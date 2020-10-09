@@ -1,4 +1,7 @@
 require 'httparty'
+require 'dotenv'
+
+Dotenv.load
 
 BASE_URL_CONVERSATIONS = 'https://slack.com/api/conversations.list'
 BASE_URL_USERS = 'https://slack.com/api/users.list'
@@ -22,10 +25,7 @@ class SlackRecord
     return response["channels"]
   end
 
-  def self.chat
-    message = 'Hello, We are testing!'
-    channel = 'test-channel2'
-
+  def self.chat(message,channel)
     chat = HTTParty.post( BASE_URL_CHAT, body: {
         token: ENV['SLACK_API_TOKEN'],
         channel: channel,
@@ -38,3 +38,5 @@ class SlackRecord
   end
 
 end
+
+#SlackRecord.chat("We are Almost there!","test-channel2")
